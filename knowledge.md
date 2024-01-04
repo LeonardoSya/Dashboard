@@ -45,3 +45,33 @@ export const lusitana = Lusitana({
 Because splitting code by routes means that pages become isolated. If a certain page throws an error, the rest of the application will still work.
 
 Futhermore, in production, whenever <Link /> components appear in the browser's viewport, Next.js automatically prefetches the code for the linked route in the background. By the time the user clicks the link, the code for the destination page will already be loaded in the background, and this is what makes the page transition near-instant!
+
+## 1.4
+
+1. 'use client'用于实现所谓的"客户端组件"，客户端组件是仅在浏览器端运行的组件，而不是在服务端渲染(SSR)，这主要用于提高性能和优化用户体验，或者确保该组件只在客户端环境运行
+
+2. clsx: a lib to conditionally apply class names when the link is active.
+
+3. 'seeding' in the context of databases?   Populating the database with an initial set of data
+
+4. API layer: APIs are an intermediary layer between application code and database. There are a few cases where you might use an API:
+- Using 3rd party services that provide an API.
+- when fetching data from the client, you want to have an API layer that runs on server to avoid exposing your database secrets to the client.
+
+5. Next.js uses Server Components to fetch data
+- Server Components support promises, providing a simpler solution for asynchronous tasks like data fetching.
+- Server Components execute **on the server**, you can keep expensive data fetches and logic on the server and only send the result to the client.
+- Since Server Components execute on the server, you can query the database directly without an additional API layer.
+
+6. Sequential & Parallel
+- Sequential: network requests depend on the completion of previous requests.
+- Parallel: network requests do not depend on each other and can be executed in parallel.
+
+7. When I want to use a waterfall pattern?
+To satisfy a condition before making the next request.
+
+8. use `Promise.all()` & `Promise.allSettled()` to initiate all promises at the same time ---- Parallel 
+
+9. Static rendering: data fetching and rendering happens on the server at build time(when you deploy), the result can then be distributed and cached in a Content Delivery Network (CDN).
+
+10. Static rendering is useful for UI with **no data or data that is shared across users**, such as a static blog or a product page.
