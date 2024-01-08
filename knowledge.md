@@ -75,3 +75,5 @@ To satisfy a condition before making the next request.
 9. Static rendering: data fetching and rendering happens on the server at build time(when you deploy), the result can then be distributed and cached in a Content Delivery Network (CDN).
 
 10. Static rendering is useful for UI with **no data or data that is shared across users**, such as a static blog or a product page.
+
+11. Dynamic Rendering: content is rendered on the server for each user at request time. Moreover, dynamic rendering allows you to access information that can only be known at request time, such as cookies or the URL search parameters.
