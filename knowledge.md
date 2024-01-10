@@ -77,3 +77,21 @@ To satisfy a condition before making the next request.
 10. Static rendering is useful for UI with **no data or data that is shared across users**, such as a static blog or a product page.
 
 11. Dynamic Rendering: content is rendered on the server for each user at request time. Moreover, dynamic rendering allows you to access information that can only be known at request time, such as cookies or the URL search parameters.
+
+## 1.9
+
+1. Streaming: a data transfer technique that allows you to break down a route into smaller "chunks" and progressively stream them from the server to the client as they become ready.
+
+By streaming, you can prevent slow data requests from blocking(阻塞) your whole page. Chunks are rendered in parallel.
+
+Each component can be considered a chunk. 
+
+2. Route groups allow you to organize files into groups without affecting the URL path structure. When you create a new folder using parentheses (), the name wont't be included in the URL path.
+
+3. Suspense: allow you to defer rendering parts of application until some condition is met(e.g. data is loaded).
+<Suspense fallback={<Component />} /> accepts a fallback component to show while the dynamic component loads.
+
+*It's good practice to move your data fetches down to the components that need it, and then wrap those components in Suspense.*
+
+By moving data fetching down to the components that need it, you can create more granular Suspense boundaries(更清晰的Suspense边界). This allows you to stream specific components and prevent the UI from blocking.
+
