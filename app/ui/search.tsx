@@ -2,21 +2,27 @@
 
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 import { useSearchParams, usePathname, useRouter } from 'next/navigation';
+import { useDebouncedCallback } from 'use-debounce';
 
 export default function Search({ placeholder }: { placeholder: string }) {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();
 
-  function handleSearch(term: string) {
+  // use debounce to reduce the number of requests sent to your database, thus saving resources.
+  const handleSearch = useDebouncedCallback((term: string) => {
+    console.log(`Search...${term}`);
+
+    // <Search> is a Client Component, so use the useSearchParams() hook to access the params from the client
+    // If you want to read the params from the client, use the useSearchParams() hook as this avoids having to go back to the server
     const params = new URLSearchParams(searchParams);
     if (term) {
       params.set('query', term);  // set the params string based on the user's input
     } else {
       params.delete('query');  // if the input is empty, delete it
     }
-    replace(`${pathname}?${params.toString()}`);  // replace the current URL with the new params
-  }
+    replace(`${pathname}?${params.toString()}`);  // replace the current URL with the new params but not reload current page
+  }, 300);
 
   return (
     <div className="relative flex flex-1 flex-shrink-0">
