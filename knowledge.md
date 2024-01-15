@@ -95,3 +95,26 @@ Each component can be considered a chunk.
 
 By moving data fetching down to the components that need it, you can create more granular Suspense boundaries(更清晰的Suspense边界). This allows you to stream specific components and prevent the UI from blocking.
 
+## 1.14
+1. Why use URL search params?
+- 可添加书签(bookmarkable)和共享(shareable)的URLs 
+- Server-Side Rendering and Initial Load: URL parameters can be directly consumed on the server to render the initial state.
+- Analytics and Tracking: Having search queries and filters directly in the URL make it easier to track user behavior without requiring additional client-side logic.
+
+2. useSearchParams: Allows you to access the parameters of the current URL.
+the search params for this URL `/dashboard/invoices?page=1&query=pending` would look like this: `{page: '1', query: 'pending'}`.
+
+3. usePathname: Lets you read the current URL's pathname. 
+for the route `/dashboard/invoices`, usePathname would return `'/dashboard/invoices'`.
+
+4. useRouter: Enables navigation between routes within client components programmatically.
+
+5. Nest.js 部署一个搜索框组件:
+	1. Capture the user's input.
+	2. Update the URL with the search params.
+	3. Keep the URL in sync with input field.
+	4. Update the table to reflect the search query.
+
+6. defaultValue vs. value / Controlled vs. Uncontrolled
+If you're using state to manage the value of an input, you'd use the value attribute to make it a controlled component. This means React would manage the input's state.
+However, since you're not using state, you can use defaultValue. This means the native input will manage its own state. This is okay since you're saving the search query to the URL instead of state.
