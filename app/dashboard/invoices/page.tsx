@@ -32,10 +32,10 @@ export default async function Page({
                 <CreateInvoice />
             </div>
 
-            {/* <Suspense key={query + currentPage} fallback={<InvoicesTableSkeleton />}> */}
-            {/* if you search for a term, you'll update the URL, which will send a new request to the server, data will be fetched on the server, and only the invoices that match your query will be returned */}
-            {/* <Table query={query} currentPage={currentPage} />
-            </Suspense> */}
+            <Suspense key={query + currentPage} fallback={<InvoicesTableSkeleton />}>
+                {/* if you search for a term, you'll update the URL, which will send a new request to the server, data will be fetched on the server, and only the invoices that match your query will be returned */}
+                <Table query={query} currentPage={currentPage} />
+            </Suspense>
 
             <div className='mt-5 flex w-full justify-center'>
                 <Pagination totalPages={totalPages} />

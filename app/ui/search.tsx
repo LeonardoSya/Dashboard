@@ -13,9 +13,11 @@ export default function Search({ placeholder }: { placeholder: string }) {
   const handleSearch = useDebouncedCallback((term: string) => {
     console.log(`Search...${term}`);
 
-    // <Search> is a Client Component, so use the useSearchParams() hook to access the params from the client
+    // <Search> is a Client Component, so Fuse the useSearchParams() hook to access the params from the client
     // If you want to read the params from the client, use the useSearchParams() hook as this avoids having to go back to the server
     const params = new URLSearchParams(searchParams);
+    params.set('page', '1');
+
     if (term) {
       params.set('query', term);  // set the params string based on the user's input
     } else {
