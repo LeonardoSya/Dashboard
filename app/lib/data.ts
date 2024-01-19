@@ -37,10 +37,10 @@ export async function fetchRevenue() {
 export async function fetchLatestInvoices() {
   noStore();
   try {
-    
+
     console.log('Fetch LastInvoices data...');
     await new Promise((resolve) => setTimeout(resolve, 2000));
-    
+
     const data = await sql<LatestInvoiceRaw>`
       SELECT invoices.amount, customers.name, customers.image_url, customers.email, invoices.id
       FROM invoices
@@ -118,7 +118,7 @@ export async function fetchFilteredInvoices(
         customers.image_url
       FROM invoices
       JOIN customers ON invoices.customer_id = customers.id
-      WHER
+      WHERE
         customers.name ILIKE ${`%${query}%`} OR
         customers.email ILIKE ${`%${query}%`} OR
         invoices.amount::text ILIKE ${`%${query}%`} OR
@@ -218,7 +218,7 @@ export async function fetchFilteredCustomers(query: string) {
 		  SUM(CASE WHEN invoices.status = 'pending' THEN invoices.amount ELSE 0 END) AS total_pending,
 		  SUM(CASE WHEN invoices.status = 'paid' THEN invoices.amount ELSE 0 END) AS total_paid
 		FROM customers
-		LEFT JOIN invoices ON customers.id = invoices.customer_id
+    LEFT JOIN invoices ON customers.id = invoices.customer_id
 		WHERE
 		  customers.name ILIKE ${`%${query}%`} OR
         customers.email ILIKE ${`%${query}%`}
