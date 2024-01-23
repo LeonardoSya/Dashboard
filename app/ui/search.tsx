@@ -7,7 +7,7 @@ import { useDebouncedCallback } from 'use-debounce';
 export default function Search({ placeholder }: { placeholder: string }) {
   const searchParams = useSearchParams();
   const pathname = usePathname();
-  const { replace } = useRouter();
+  const { replace } = useRouter();  // Nextjs提供的hook，用于访问路由对象, {replace}解构初
 
   // use debounce to reduce the number of requests sent to your database, thus saving resources.
   const handleSearch = useDebouncedCallback((term: string) => {
@@ -16,8 +16,8 @@ export default function Search({ placeholder }: { placeholder: string }) {
     // <Search> is a Client Component, so Fuse the useSearchParams() hook to access the params from the client
     // If you want to read the params from the client, use the useSearchParams() hook as this avoids having to go back to the server
     const params = new URLSearchParams(searchParams);
+    // 在用户输入新的搜索查询时 重置页码为1
     params.set('page', '1');
-
     if (term) {
       params.set('query', term);  // set the params string based on the user's input
     } else {
