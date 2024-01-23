@@ -7,16 +7,16 @@ import { generatePagination } from '@/app/lib/utils';
 import { usePathname, useSearchParams } from 'next/navigation';
 
 export default function Pagination({ totalPages }: { totalPages: number }) {
-  const pathname = usePathname();
+  const pathname = usePathname();  // 这行代码使用 usePathname 钩子获取当前URL的路径部分。例如，如果完整URL是 http://example.com/dashboard/invoices?page=2，那么 pathname 的值将是 /dashboard/invoices。
   const searchParams = useSearchParams();     // `/dashboard/invoices?page=1&query=pending` would look like this: `{page: '1', query: 'pending'}`.
   const currentPage = Number(searchParams.get('page')) || 1;
-  const allPages = generatePagination(currentPage, totalPages);
+  const allPages = generatePagination(currentPage, totalPages);  // 该函数用于生成每个分页链接的URL
 
   // createPageURL creates an instance of the current search parameters.
   const createPageURL = (pageNumber: number | string) => {
-    const params = new URLSearchParams(searchParams);  
-    params.set('page', pageNumber.toString());
-    return `${pathname}?${params.toString()}`;
+    const params = new URLSearchParams(searchParams);  // 复制当前的查询参数
+    params.set('page', pageNumber.toString());   // 将page参数设置为传入的 pageNumber
+    return `${pathname}?${params.toString()}`;   // 返回的字符串是由 pathname 和更新后的查询参数拼接成的 URL
   }
 
   return (
